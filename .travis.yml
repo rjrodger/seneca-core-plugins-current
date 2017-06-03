@@ -16,7 +16,7 @@ env:
     - TEST_SUITE=senecajs/seneca-transport
 
 before_script:
-  - export SENECA_CURRENT=v3.3.0
+  - export SENECA_CURRENT=v3.3.0p0
   - TEST_SUITE_FOLDER=$(basename $TEST_SUITE)
   - echo "TEST_SUITE:$TEST_SUITE"
   - echo "TEST_SUITE_FOLDER:$TEST_SUITE_FOLDER"
