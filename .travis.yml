@@ -1,5 +1,7 @@
 language: node_js
-sudo: false
+sudo: required
+dist: trusty
+
 
 node_js:
   - '4'
@@ -11,9 +13,12 @@ node_js:
 env:
   matrix:
     - TEST_SUITE=senecajs/seneca
-    - TEST_SUITE=senecajs/seneca-entity
-    - TEST_SUITE=senecajs/seneca-user
     - TEST_SUITE=senecajs/seneca-transport
+    - TEST_SUITE=senecajs/seneca-entity
+    - TEST_SUITE=senecajs/seneca-mem-store
+    - TEST_SUITE=senecajs/seneca-user
+    - TEST_SUITE=senecajs/seneca-balance-client
+    - TEST_SUITE=senecajs/seneca-mesh
 
 before_script:
   - export SENECA_CURRENT=v3.3.0p0
