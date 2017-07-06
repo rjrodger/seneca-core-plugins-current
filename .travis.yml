@@ -2,6 +2,8 @@ language: node_js
 sudo: required
 dist: trusty
 
+services:
+  - rabbitmq
 
 node_js:
   - '4'
@@ -9,28 +11,35 @@ node_js:
   - '8'
 
 env:
-  global:
-    - TIMEOUT_MULTIPLIER=8
+  - TEST_SUITE=senecajs/seneca
+  - TEST_SUITE=senecajs/seneca-transport
+  - TEST_SUITE=senecajs/seneca-entity
+  - TEST_SUITE=senecajs/seneca-mem-store
+  - TEST_SUITE=senecajs/seneca-user
+  - TEST_SUITE=senecajs/seneca-balance-client
+  - TEST_SUITE=senecajs/seneca-repl
+  - TEST_SUITE=senecajs/seneca-joi
+  - TEST_SUITE=senecajs/seneca-jsonfile-store
+  - TEST_SUITE=senecajs/seneca-level-store
+  - TEST_SUITE=senecajs/seneca-pino-logger
+  - TEST_SUITE=senecajs/seneca-web
+  - TEST_SUITE=senecajs/seneca-basic
+  - TEST_SUITE=senecajs/seneca-registry
+  - TEST_SUITE=senecajs/seneca-amqp-transport
 
-  matrix:
-    - TEST_SUITE=senecajs/seneca
-    - TEST_SUITE=senecajs/seneca-transport
-    - TEST_SUITE=senecajs/seneca-entity
-    - TEST_SUITE=senecajs/seneca-mem-store
-    - TEST_SUITE=senecajs/seneca-user
-    - TEST_SUITE=senecajs/seneca-balance-client
-    - TEST_SUITE=senecajs/seneca-repl
-    - TEST_SUITE=senecajs/seneca-joi
-    - TEST_SUITE=senecajs/seneca-jsonfile-store
-    - TEST_SUITE=senecajs/seneca-level-store
-    - TEST_SUITE=senecajs/seneca-pino-logger
-    - TEST_SUITE=senecajs/seneca-web
-    - TEST_SUITE=senecajs/seneca-basic
-    - TEST_SUITE=senecajs/seneca-registry
+matrix:
+  exclude:
+    - node_js: '4'
+      env: TEST_SUITE=senecajs/seneca-amqp-transport
+    - node_js: '8'
+      env: TEST_SUITE=senecajs/seneca-pino-logger
+    - env: TEST_SUITE=senecajs/seneca-repl
     
 
 before_script:
-  - export SENECA_CURRENT=v3.4.0
+  - export SENECA_CURRENT=v3.4.1
+  - TIMEOUT_MULTIPLIER=8
+  - echo "TEST_SUITE:$TEST_SUITE"
   - TEST_SUITE_FOLDER=$(basename $TEST_SUITE)
   - echo "TEST_SUITE:$TEST_SUITE"
   - echo "TEST_SUITE_FOLDER:$TEST_SUITE_FOLDER"
